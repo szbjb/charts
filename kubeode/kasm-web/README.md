@@ -18,10 +18,10 @@ helm install my-kassmweb szbjb-charts/kasmweb
 1. 默认使用 hostPath 持久化存储（storage.usePersistentStorage=true）
 ```bash
 helm repo add szbjb-charts https://szbjb.github.io/charts
-helm repo update
+helm repo update    
 helm install my-kassmweb szbjb-charts/kasmweb  --set storage.usePersistentStorage=true
 ```
-3. 使用 StorageClass 和 PVC 持久化存储（storage.usePersistentStorage=true 和 storage.type=StorageClass）
+2. 使用 StorageClass 和 PVC 持久化存储（storage.usePersistentStorage=true 和 storage.type=StorageClass）
 ```bash 
 helm repo add szbjb-charts https://szbjb.github.io/charts
 helm repo update
