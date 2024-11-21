@@ -26,7 +26,7 @@ env:
 storage:
   type: hostpath  # 选择存储类型，hostpath 或 StorageClass
   path: "/mnt/disks/data/pvc-data"  # Set host path if using hostpath storage type
-  usePersistentStorage: true  # Use PersistentStorage (true) or not (false)
+  usePersistentStorage: false  # Use PersistentStorage (true) or not (false)
 
 ingress:
   enabled: false  # 默认禁用 Ingress  true 启用

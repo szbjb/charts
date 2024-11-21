@@ -13,6 +13,16 @@ helm install my-KasmWeb ./
 ```
 
 该命令会使用默认的配置，即不启用持久化存储 (PVC)，并使用默认的服务和端口设置。
+1. 默认使用 hostPath 持久化存储（storage.usePersistentStorage=true）
+```bash
+helm install test ./ --set storage.usePersistentStorage=true
+```
+3. 使用 StorageClass 和 PVC 持久化存储（storage.usePersistentStorage=true 和 storage.type=StorageClass）
+```bash 
+helm install test ./ --set storage.usePersistentStorage=true --set storage.type=StorageClass --set pvc.usePersistentVolumeClaim=true --set pvc.storageClassName=""
+
+```
+
 
 ### 配置项表格
 

@@ -36,7 +36,7 @@ spec:
             claimName: {{ .Release.Name }}-pvc
             storageClassName: {{ .Values.pvc.storageClassName | default "standard" }}
           {{- end }}
-{{- else }}
+{{- else }}  # Add this section for Deployment if not using persistent storage
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -60,4 +60,5 @@ spec:
           env:
             - name: VNC_PW
               value: {{ .Values.env.VNC_PW }}
+{{- end }}  # Correctly close the else block
 
