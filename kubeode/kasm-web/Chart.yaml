@@ -1,0 +1,6 @@
+apiVersion: v2
+name: kasmweb
+description: A Helm chart for deploying KasmWeb
+version: 0.1.0
+appVersion: "1.15.0"
+

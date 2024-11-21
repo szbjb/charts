@@ -1,0 +1,14 @@
+{{- if .Values.pvc.usePersistentVolumeClaim }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ .Release.Name }}-pvc
+spec:
+  accessModes:
+    - {{ .Values.pvc.accessModes | default "ReadWriteOnce" }}  # 使用默认值 "ReadWriteOnce"
+  resources:
+    requests:
+      storage: {{ .Values.pvc.size | default "5Gi" }}
+  storageClassName: {{ .Values.pvc.storageClassName | default "openebs-hostpath" }}
+{{- end }}
+

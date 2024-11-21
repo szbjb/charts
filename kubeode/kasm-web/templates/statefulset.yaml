@@ -1,0 +1,63 @@
+{{- if .Values.storage.usePersistentStorage }}
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ .Release.Name }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: desktop
+          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: 6901
+          env:
+            - name: VNC_PW
+              value: {{ .Values.env.VNC_PW }}
+          volumeMounts:
+            - name: kasm-data
+              mountPath: /home/kasm-user/shares
+      volumes:
+        - name: kasm-data
+          {{- if eq .Values.storage.type "hostpath" }}
+          hostPath:
+            path: {{ .Values.storage.path }}
+            type: DirectoryOrCreate
+          {{- else if eq .Values.storage.type "StorageClass" }}
+          persistentVolumeClaim:
+            claimName: {{ .Release.Name }}-pvc
+            storageClassName: {{ .Values.pvc.storageClassName | default "standard" }}
+          {{- end }}
+{{- else }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: desktop
+          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: 6901
+          env:
+            - name: VNC_PW
+              value: {{ .Values.env.VNC_PW }}
+

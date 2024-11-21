@@ -1,0 +1,44 @@
+# Default values for kasmweb
+
+replicaCount: 1
+image:
+  repository: swr.cn-southwest-2.myhuaweicloud.com/kubeode/kasmweb/ubuntu-jammy-desktop
+  tag: "1.15.0"
+  pullPolicy: IfNotPresent
+
+service:
+  type: NodePort
+  port: 6901
+  nodePort: ""
+  targetPort: 6901
+
+pvc:
+  usePersistentVolumeClaim: false  # Default is false to disable PVC
+  size: 5Gi
+  storageClassName: ""
+  accessMode: ReadWriteOnce
+
+env:
+  VNC_PW: "Password"
+  LANG: "zh_CN.UTF-8"
+
+# Storage section: controls whether to use hostpath or StorageClass (PVC)
+storage:
+  type: hostpath  # 选择存储类型，hostpath 或 StorageClass
+  path: "/mnt/disks/data/pvc-data"  # Set host path if using hostpath storage type
+  usePersistentStorage: true  # Use PersistentStorage (true) or not (false)
+
+ingress:
+  enabled: false  # 默认禁用 Ingress  true 启用
+  host: "example.com"  # 替换为你的域名
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"  # 延长 WebSocket 连接的超时时间
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"  # 延长 WebSocket 连接的超时时间
+    nginx.ingress.kubernetes.io/connection-proxy: "keep-alive"  # 保持 WebSocket 连接
+  tls:
+    - hosts:
+        - "example.com"  # 替换为你的域名
+      secretName: "example-com-tls"  # TLS 证书的 Secret 名称
+
