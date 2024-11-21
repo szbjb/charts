@@ -8,6 +8,10 @@
 
 如果你希望快速启动一个默认配置的 KasmWeb 实例（不启用持久化存储），可以直接使用以下命令：
 
+默认账号密码 kasm_user  Password
+web地址: https://xxxxxxx:xxxx   一定要用https访问
+端口查看 kubectl get svc -A
+
 ```bash
 helm repo add szbjb-charts https://szbjb.github.io/charts
 helm repo update
@@ -29,6 +33,8 @@ helm install my-kassmweb szbjb-charts/kasmweb  --set storage.usePersistentStorag
 
 ```
 
+[![desktop01.png](https://i.postimg.cc/hGQgGXLS/desktop01.png)](https://postimg.cc/DWhRjypD)
+[![desktop02.png](https://i.postimg.cc/0QgvK9n7/desktop02.png)](https://postimg.cc/94BKv5vf)
 
 ### 配置项表格
 
