@@ -8,6 +8,6 @@ entries:
     digest: c5f8cc48d5403c22ef5357d89fe8b0c42f3b87a7525ffdeb8339221e0b9c3a79
     name: kasmweb
     urls:
-    - https://szbjb.github.io/kasmweb-0.1.0.tgz
+    - https://szbjb.github.io/charts/kasmweb-0.1.0.tgz
     version: 0.1.0
 generated: "2024-11-21T21:38:49.614310832+08:00"
